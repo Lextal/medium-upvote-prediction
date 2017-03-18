@@ -6,10 +6,14 @@
 
 /analysis for visualizations
 
-Primary considerations for models:
+### Primary considerations for models:
 
 We prepare one script with fixed state (for reproducibility) for splitting the dataset into train and test samples.
 
 Models are dir-based, every directory contains at least all necessary descriptions for reproducing related results.
 
-Let's make everything independent from actual datasets (if possible), because this experiment is going to be amazing for a variety of well-known datasets. If anything we are going to try here works, it will be enough for publication. 
+### List of experiments (global):
+	1. Fully supervised tag prediction
+	2. Weakly supervised tag prediction
+	3. Virality prediction (range of likes)
+	4. Synthetic labeling and reweighting for task-specific document representations
