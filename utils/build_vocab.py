@@ -29,19 +29,18 @@ for obj in tqdm(gen):
 
 wordcounts = sorted([x for x in counter.items()], key=lambda x: -x[1])
 
-with open(args.vocab_file, 'w') as vocab:
+def check_eligibility(word, count, n):
+    if str(args.prefix) in word:
+        return True, n
     if args.choose_top != -1:
-        n = 0
-        for w in wordcounts:
-            if args.prefix is not None or n < args.choose_top:
-                check = args.prefix in w[0]
-                if check or n < args.choose_top:
-                    vocab.write(w[0] + '\n')
-                    if not check:
-                        n += 1
+        return n < args.choose_top, n + 1
     else:
-        for word, count in counter.items():
-            if count >= args.min_count and (args.prefix is None or args.prefix != word[:len(args.prefix)]):
-                vocab.write(word + '\n')
-            if n == args.choose_top:
-                break
+        return count >= args.min_count, n + 1
+
+with open(args.vocab_file, 'w') as vocab:
+    n = 0
+    for word, count in wordcounts:
+        check, n_ = check_eligibility(word, count, n)
+        if check:
+            vocab.write(word + '\n')
+            n = n_
