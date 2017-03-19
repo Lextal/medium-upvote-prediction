@@ -15,6 +15,6 @@ def for_classifier(obj):
     s = ''
     if 'labels' in obj:
         s += ' '.join(obj['labels'])
-        s += '\t'
+        s += ' '
     s += obj['text']
     return s
