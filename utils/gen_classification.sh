@@ -7,4 +7,4 @@ echo "Generating training dataset for fasttext"
 python data_loader.py ${src_dir}/train.json > ${src_dir}/train.txt
 
 echo "Generating validation dataset for fasttext"
-python data_loader.py ${src_dir}/train.json > ${src_dir}/test.txt
+python data_loader.py ${src_dir}/test.json > ${src_dir}/test.txt
