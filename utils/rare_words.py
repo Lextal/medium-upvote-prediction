@@ -1,9 +1,10 @@
 from collections import defaultdict
-import sys
+from argparse import ArgumentParser
+from tqdm import tqdm
 
 def global_word_counts(data_src, min_count=10, prefix='__rt*'):
     wc = defaultdict(int)
-    for line in open(data_src):
+    for line in tqdm(open(data_src)):
         for w in line.strip().split():
             wc[w] += 1
     wc_filt = {}
@@ -21,9 +22,15 @@ def rarest_words_doc(doc, wc, k=10, prefix='__rt*'):
     return ' '.join(labels) + ' ' + ' '.join(words)
 
 if __name__ == '__main__':
-    src = sys.argv[1]
-    min_count = int(sys.argv[2])
-    k = int(sys.argv[3])
+    parser = ArgumentParser()
+    parser.add_argument('source_file', type=str)
+    parser.add_argument('--min_count', type=int, default=10)
+    parser.add_argument('--labels', type=int, default=10)
+
+    args = parser.parse_args()
+    src = args.source_file
+    min_count = args.min_count
+    k = args.labels
     wc = global_word_counts(src, min_count)
-    for line in open(src):
+    for line in tqdm(open(src)):
         print(rarest_words_doc(line, wc, k))
