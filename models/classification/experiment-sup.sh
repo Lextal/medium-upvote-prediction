@@ -9,7 +9,7 @@ log_file=$1
 
 lr=0.25
 dim=300
-epoch=10
+epoch=20
 
 ./train.sh $lr $dim $epoch 
 model_path=~/models/sup_dim_${dim}_lr_${lr}_epoch_${epoch}.bin
